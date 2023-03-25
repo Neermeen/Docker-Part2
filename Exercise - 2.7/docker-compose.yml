@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: frontend-project:v2
+    build: .
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080/
+    ports:
+      - 5000:5000
+    depends_on:
+      - backend
+  backend:
+    image: backend-project:v2
+    build: .
+    environment:
+      - REDIS_HOST=redis-db
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis-db
+      - postgres
+  redis-db:
+    image: redis
+    restart: unless-stopped
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    volumes:
+      - database:/var/lib/postgresql/data
+      
+volumes:
+  database:

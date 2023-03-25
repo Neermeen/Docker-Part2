@@ -1,0 +1,7 @@
+docker-compose up
+Creating network "documents_default" with the default driver
+Creating simple-ws ... done
+Attaching to simple-ws
+simple-ws      | Starting log output
+simple-ws      | Wrote text to /usr/src/app/text.log
+simple-ws      | Wrote text to /usr/src/app/text.log
